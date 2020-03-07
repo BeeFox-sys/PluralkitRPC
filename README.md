@@ -1,4 +1,4 @@
-# Pluralkit RCP
+# Pluralkit RPC
 This is a small node program that displays your pluralkit system, the current fronters, and the size of your system, in the discord Rich Presence on your profile.
 Nothing needs to be configured from the program, it will automatically detect the account and fetch all public information (private information cannot be fetched)
 
