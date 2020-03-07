@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pluralkit RCP</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/skeleton.css">
+    <style>
+        html {
+            -webkit-app-region: drag;
+            background-color: #eee;
+            overflow: hidden;
+        }
+        body{
+            margin: 4px 8px;
+            text-align: center;
+            margin-top: 5%;
+            -webkit-app-region: drag;
+            overflow: hidden;
+            
+        }
+        img {
+            border: 2px solid #888;
+            background-color: #eee;
+            border-radius: 100%;
+            display: block;
+        }
+        button{
+            display:block;
+            -webkit-app-region: none;
+        }
+    </style>
+
+    <script>
+        const remote = require('electron').remote
+        const { shell } = require('electron')
+        let w = remote.getCurrentWindow()
+        function close(){
+            w.close()
+        }
+        function hide(){
+            w.hide()
+        }
+        function donate(){
+            shell.openExternal("https://ko-fi.com/sleepysystem")
+        }
+    </script>
+</head>
+<body>
+    <div style="display:flex;justify-content:center;align-items:center;">
+        <img src="./icon.png" alt="Pluralkit" width="150px" height="auto">
+    </div>
+    <p><h5>Thanks for using this program! If you like this program and would like to help out, you can</h5></p>
+    <div style="display:flex;justify-content:center;align-items:center;">
+        <button onclick="donate()" class="button-primary">Buy the dev a Ko-Fi</button>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;">
+    <button onclick="hide()">Send to tray</button>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;">
+    <button onclick="close()">Close App</button>
+    </div>
+    
+</body>
+</html>

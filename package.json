@@ -2,15 +2,15 @@
   "name": "pluralkitrpc",
   "version": "1.0.0",
   "description": "A Discord RCP Client for Pluralkit",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "electron ."
   },
   "author": "",
   "license": "ISC",
-  "bin": "bin.js", 
   "dependencies": {
     "bent": "^7.1.1",
-    "discord-rpc": "^3.1.0"
+    "discord-rpc": "^3.1.0",
+    "electron": "^8.1.0"
   }
 }
