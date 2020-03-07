@@ -5,6 +5,7 @@ const getJSON = bent('json',200,404,403)
 const rpc = new DiscordRPC.Client({ transport: 'ipc' });
 var system = null
 var members = null
+var memberToggle = false
 async function updateInfo(){
     console.debug(`${new Date().toISOString()}: Updating Info`)
     system = await getJSON(`https://api.pluralkit.me/v1/a/${rpc.user.id}`)
@@ -23,13 +24,12 @@ async function setActivity(){
     let fronters = switchEntry.members || null
     let timestamp = null
     if(fronters) timestamp = new Date(switchEntry.timestamp)
-    let name = trunicate(system.name,113) + (members?` (${members.length} members)`:'')
+    let name = trunicate(system.name,128)
 
     let desc = "If you are seeing this, something went wrong"
     const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
-    if(!fronters){
+    if(!fronters || memberToggle){
         desc = members?`${members.length} members`:"  "
-        name = trunicate(system.name,128)
     } else if(!fronters.length){
         desc = `No Fronter`
     } else {
@@ -47,11 +47,10 @@ async function setActivity(){
         state: desc,
         largeImageKey: "large",
         largeImageText: "Pluralkit",
-        partyMax: (fronters && fronters.length)?members.length:null,
-        partySize: (fronters && fronters.length)?fronters.length:null,
-        startTimestamp: (fronters)?timestamp:null,
+        startTimestamp: (fronters && !memberToggle)?timestamp:null,
         instance: false,
       })
+    memberToggle = !memberToggle
 }
 
 rpc.on('ready',async () => {  
