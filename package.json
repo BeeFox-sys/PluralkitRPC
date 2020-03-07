@@ -1,0 +1,15 @@
+{
+  "name": "pluralkitrpc",
+  "version": "1.0.0",
+  "description": "A Discord RCP Client for Pluralkit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bent": "^7.1.1",
+    "discord-rpc": "^3.1.0"
+  }
+}
