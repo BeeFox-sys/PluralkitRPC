@@ -8,7 +8,14 @@ var members = null
 async function updateInfo(){
     console.debug(`${new Date().toISOString()}: Updating Info`)
     system = await getJSON(`https://api.pluralkit.me/v1/a/${rpc.user.id}`)
+    if(system == "Account not found."){
+        console.error("This account does not have a pluralkit system!")
+        process.exit(1)
+    }
     members = await getJSON(`https://api.pluralkit.me/v1/s/${system.id}/members`)
+    if(members == "Unauthorized to view member list."){
+        members = null
+    }
 }
 async function setActivity(){
     console.debug(`${new Date().toISOString()}: Updating Rich Presence`)
@@ -16,14 +23,12 @@ async function setActivity(){
     let fronters = switchEntry.members || null
     let timestamp = null
     if(fronters) timestamp = new Date(switchEntry.timestamp)
-
-    let name = trunicate(system.name,113) + ` (${members.length} members)`
+    let name = trunicate(system.name,113) + (members?` (${members.length} members)`:'')
 
     let desc = "If you are seeing this, something went wrong"
-    // if(switchEntry == "Unauthorized to view fronter.") desc = 
     const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
     if(!fronters){
-        desc = `${members.length} members`
+        desc = members?`${members.length} members`:"  "
         name = trunicate(system.name,128)
     } else if(!fronters.length){
         desc = `No Fronter`
@@ -54,13 +59,16 @@ rpc.on('ready',async () => {
     await updateInfo()
     setInterval(() => {
         updateInfo();
-    }, 36e5); //1h
+    }, 600e3); //10m
     setActivity();
     setInterval(() => {
         setActivity();
     }, 15e3); // 15s
 })
-rpc.login({ clientId }).catch(console.log);
+rpc.login({ clientId }).catch(error => {
+    if(error == "Error: Could not connect") return console.error("Could not connect! Discord is probably closed")
+    console.error(error)
+});
 
 
 function trunicate(string,length){
