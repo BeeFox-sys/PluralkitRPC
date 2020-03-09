@@ -1,20 +1,17 @@
 {
-  "name": "pluralkitrpc",
-  "version": "1.0.0",
-  "description": "A Discord RCP Client for Pluralkit",
-  "main": "app.js",
-  "scripts": {
-    "start": "electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
-  },
-  "build": {
-    "appId": "sleepy.bee"
-  },
-  "author": "BeeFox-sys",
-  "license": "ISC",
-  "dependencies": {
-    "bent": "^7.1.1",
-    "discord-rpc": "^3.1.0"
-  }
+    "name": "pluralkitrpc",
+    "main": "index.html",
+    "bg-script": "main.js",
+    "window": {
+        "width": 300,
+        "height": 450,
+        "icon": "icon.png",
+        "resizable": false
+    },
+    "author": "BeeFox-sys",
+    "license": "ISC",
+    "dependencies": {
+        "bent": "^7.1.1",
+        "discord-rpc": "^3.1.0"
+    }
 }

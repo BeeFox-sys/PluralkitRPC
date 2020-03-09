@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="./css/skeleton.css">
     <style>
         html {
-            -webkit-app-region: drag;
+            /* -webkit-app-region: drag; */
             background-color: #eee;
             overflow: hidden;
+            width: 300px;
+            height: 450px;
         }
         body{
             margin: 4px 8px;
@@ -33,17 +35,27 @@
     </style>
 
     <script>
-        const remote = require('electron').remote
-        const { shell } = require('electron')
-        let w = remote.getCurrentWindow()
-        function close(){
-            w.close()
+        const { Shell } = nw
+        const gui = require("nw.gui")
+        var win = gui.Window.get();
+        var tray;
+        function hide() {
+            win.hide();
+            tray = new gui.Tray({ icon: 'icon.png', tooltip:"Pluralkit RPC\nClick to restore",title:"Pluralkit RPC" });
+
+            tray.on('click', function() {
+                win.show();
+                this.remove();
+                tray = null;
+            });
         }
-        function hide(){
-            w.hide()
+
+        function exit(){
+            nw.App.closeAllWindows()
         }
+        
         function donate(){
-            shell.openExternal("https://ko-fi.com/sleepysystem")
+            Shell.openExternal("https://ko-fi.com/sleepysystem")
         }
     </script>
 </head>
@@ -59,8 +71,7 @@
     <button onclick="hide()">Send to tray</button>
     </div>
     <div style="display:flex;justify-content:center;align-items:center;">
-    <button onclick="close()">Close App</button>
+    <button onclick="exit()">Close App</button>
     </div>
-    
 </body>
 </html>
