@@ -13,6 +13,6 @@
     "license": "ISC",
     "dependencies": {
         "bent": "^7.1.1",
-        "discord-rpc": "^3.1.0"
+        "discord-rpc": "^3.2.0"
     }
 }
